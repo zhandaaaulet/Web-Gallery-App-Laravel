@@ -37,12 +37,23 @@
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-success" data-toggle="collapse" data-target="#demo">Add
+                                        @if($errors->any())
+                                            @foreach($errors->all() as $error)
+                                                <div class="alert alert-danger">
+                                                    <strong>Error!</strong>{{$error}}
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                        <button class="btn btn-success" data-toggle="collapse"
+                                                data-target="#demo">Add
                                             Image
                                         </button>
 
                                         <div id="demo" class="collapse">
-                                            <form action="/action_page.php" id="image_upload_form">
+                                            <form action="{{route('image-store')}}" method="post"
+                                                  id="image_upload_form"
+                                                  enctype="multipart/form-data">
+                                                @csrf
                                                 <div class="form-group">
                                                     <label for="caption">Image Caption</label>
                                                     <input type="text" name="caption" class="form-control"
@@ -67,7 +78,7 @@
                                                                 <div class="box-tools pull-right">
                                                                     <button type="button"
                                                                             class="btn btn-danger btn-xs remove-preview">
-                                                                        <i class="fa fa-times"></i> Reset This Form
+                                                                        <i class="fa fa-times"></i> Cancel
                                                                     </button>
                                                                 </div>
                                                             </div>
